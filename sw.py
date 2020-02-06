@@ -17,7 +17,7 @@ def hello():
 @app.route('/login', methods=['POST'])
 def do_admin_login():
     print(flask.request.form)
-    if flask.request.form['p'] == 'password' and flask.request.form['u'] == 'admin':
+    if flask.request.form['password'] == 'password' and flask.request.form['u'] == 'admin':
         flask.session['logged_in'] = True
     else:
         flask.flash('wrong password!')

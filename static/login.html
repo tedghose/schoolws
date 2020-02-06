@@ -2,13 +2,34 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="/dir/lstyle.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+    <script>
+      function crypt(){
+      // crypt() : this will encrypt the password when the registration form is submitted
+
+        // Get password + encrypt
+        var password = document.getElementById("p");
+        var cipher = CryptoJS.AES.encrypt(password.value, "CIPHERKEY");
+        cipher = cipher.toString();
+
+        // Set encrypted password to hidden field
+        document.getElementById("user-real-password").value = cipher;
+
+        // Remove clear text password
+        password.value = "";
+
+        // Submit form as usual
+        return true;
+      }
+    </script>
 </head>
 <body>
 <div class="login">
     <h1>Login</h1>
-    <form action="/login" method="post">
+    <form action="/login" method="post" onsubmit="return crypt()">
         <input type="text" name="u" placeholder="Username" required="required" />
-        <input type="password" name="p" placeholder="Password" required="required" />
+        <input type="password" id="p" placeholder="Password" required="required" />
+        <input type="hidden" id="user-real-password" name="password"/>
         <button type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
     </form>
 </div>
