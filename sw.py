@@ -1,5 +1,6 @@
 import flask
 import os
+from Crypto.Cipher import AES
 from flask import Flask
 #from flask.ext.session import Session
 
@@ -17,7 +18,10 @@ def hello():
 @app.route('/login', methods=['POST'])
 def do_admin_login():
     print(flask.request.form)
-    if flask.request.form['password'] == 'password' and flask.request.form['u'] == 'admin':
+    cipher.AES.new("CIPHERKEY", AES.MODE_CBC)
+    pswd = cipher.decrypt(flask.request.form['password'])
+    print (pswd)
+    if pswd == 'password' and flask.request.form['u'] == 'admin':
         flask.session['logged_in'] = True
     else:
         flask.flash('wrong password!')
